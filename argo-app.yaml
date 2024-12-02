@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gitops
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/your-org/k8s-manifests-repo.git  # K8s Manifests Repo URL
+    targetRevision: HEAD  # Track the latest commit
+    path: k8s  # Directory in the repo where deployment.yaml is located
+  destination:
+    server: https://kubernetes.default.svc  # Kubernetes API server
+    namespace: default  # Namespace for deployment
+  syncPolicy:
+    automated:
+      prune: true  # Automatically prune resources not defined in the repo
+      selfHeal: true  # Automatically sync if there is a drift from the desired state
+

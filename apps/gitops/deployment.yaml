@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitops
+  labels:
+    app: gitops
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: gitops
+  template:
+    metadata:
+      labels:
+        app: gitops
+    spec:
+      containers:
+      - name: gitops
+        image: mahirahmed93/gitops:latest  # This will be updated by the CI pipeline
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gitops-service
+spec:
+  selector:
+    app: gitops
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: LoadBalancer
+
