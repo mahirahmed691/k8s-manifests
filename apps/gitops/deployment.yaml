@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: gitops
-        image: mahirahmed93/gitops:latest  # This will be updated by the CI pipeline
+        image: mahirahmed93/gitops:1a78d935a8794b9978bbe139c1c293dc4053dd1b
         ports:
         - containerPort: 3000
 ---
